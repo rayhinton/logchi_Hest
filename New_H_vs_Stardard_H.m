@@ -12,7 +12,8 @@ seed = 10;
 rng(seed, "twister")
 
 J = 11; n = 2^J;         % sample size
-L = 1;
+% L = 1;
+L = 0;
 
 filt=[ -0.075765714789341  -0.029635527645954 ...
        0.497618667632458   0.803738751805216 ...
@@ -20,14 +21,17 @@ filt=[ -0.075765714789341  -0.029635527645954 ...
       -0.012603967262261   0.032223100604071]; %Symmlet 4  
 
 pairs = nchoosek(1 :J-1, 2);
-a = 3; b = 9;
+% a = 3; b = 9;
+% choosing b = J - 1 results in an indexing error from MomentMatchHurst_new
+a = 0; b = J - 1;
 pairs = pairs(find( pairs(:,1) >= a & pairs(:,2 ) <=b ),:);
 
 % ismean >> 0 - median, 1 = mean
  ismean = 0;
 
 H     = .20:.1:.8;%linspace(0.1,.7, 5);
-nrep = 500;
+% nrep = 500;
+nrep = 10;
 
 %% run simulations
 
