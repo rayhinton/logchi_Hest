@@ -3,13 +3,11 @@ close all; clear all; clc
 %addpath('/Users/hvimalajeewa2/Documents/Tamu_Documents/TAMU/DistVar/supCodes/function/')
 addpath('./MatlabFunctions/')
 
-%%
-
 lw = 2.5; set(0, 'DefaultAxesFontSize', 16);fs = 15;msize = 10;
 seed = 10;
 rng(seed, "twister")
 
-J = 13; n = 2^J;         % sample size
+J = 11; n = 2^J;         % sample size
 L = 1;
 
 filt=[ -0.075765714789341  -0.029635527645954 ...
@@ -25,7 +23,7 @@ pairs = pairs(find( pairs(:,1) >= a & pairs(:,2 ) <=b ),:);
  ismean = 0;
 
 H     = .20:.1:.8;%linspace(0.1,.7, 5);
-nrep = 10;
+nrep = 500;
 
 H_est = zeros(length(H), nrep); H_est_old= zeros(length(H), nrep);
 
@@ -35,10 +33,10 @@ for j = 1: length(H)
         
         wddata = dwtr(data, J - L, filt);
         
-        h_hat = MomentMatchHurst_new(wddata, pairs, ismean);
+        h_hat = MomentMatchHurst_new(wddata, pairs, L, ismean);
         H_est(j, i) = h_hat;
     
-        [slope, levels, log2spec] = waveletspectra_new(data, L, filt, a, b, 0,0);
+        [slope, levels, log2spec] = waveletspectra_new(data, L, filt, a, b, 0, 0);
         H_est_old(j, i) = (slope * (-1) - 1)/2;
     
     end
