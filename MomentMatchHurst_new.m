@@ -10,7 +10,10 @@ function [h_hat, E] = MomentMatchHurst_new(wddata, pairs, L, ismean)
         k1 = pairs(p,1); k2 = pairs(p,2); 
 
         %l1 =  J - k1; l2 =  J - k2;
-        l1 =  round(k1-L+1); l2 =  round(k2-L+1);
+        % l1 =  round(k1-L+1); l2 =  round(k2-L+1);
+        % RJH k1 and k2 do not need to be converted; they can be used as-is
+        % to get calculate the indices for wddata.
+        l1 = k1; l2 = k2;
         k1_indx =  2^(l1) + 1 : 2^(l1 + 1); 
         k2_indx =  2^(l2) + 1 : 2^(l2 + 1);
                 
